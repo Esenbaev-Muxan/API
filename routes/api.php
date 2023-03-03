@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\TaskController;
 use App\Http\Controllers\Api\ProfileController;
+use App\Http\Controllers\Api\ProjectController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,6 +25,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::post('/auth/register', [AuthController::class, 'register']);
 Route::post('/auth/login', [AuthController::class, 'login']);
 
+Route::get('/search/{name}', [ProjectController::class, 'search']);
 
 
 Route::middleware('auth:sanctum')->group(function () {
@@ -47,4 +49,10 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::post('/tasks/{task}/suggest', [TaskController::class, 'addSuggestedUsers']);
 
+    
+    // Products 
+    Route::get('/projects', [ProjectController::class, 'index']);
+    Route::post('/projects', [ProjectController::class, 'store']);
+    Route::get('/projects/{id}', [ProjectController::class, 'show']);
+    Route::put('/projects/{id}', [ProjectController::class, 'update']);
 });
